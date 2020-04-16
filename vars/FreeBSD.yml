@@ -1,0 +1,3 @@
+---
+__portshaker_db_dir: /var/db/portshaker
+__portshaker_conf_dir: /usr/local/etc/portshaker

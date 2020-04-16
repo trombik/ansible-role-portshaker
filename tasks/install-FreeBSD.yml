@@ -1,0 +1,6 @@
+---
+
+- name: Install portshaker
+  pkgng:
+    name: portshaker
+    state: present

@@ -1,0 +1,6 @@
+---
+
+- name: Restart portshaker
+  service:
+    name: portshaker
+    state: restarted

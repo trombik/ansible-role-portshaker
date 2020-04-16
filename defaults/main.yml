@@ -1,0 +1,9 @@
+---
+portshaker_user: portshaker
+portshaker_group: portshaker
+portshaker_log_dir: /var/log/portshaker
+portshaker_db_dir: "{{ __portshaker_db_dir }}"
+portshaker_service: portshaker
+portshaker_conf_dir: "{{ __portshaker_conf_dir }}"
+portshaker_conf_file: "{{ __portshaker_conf_dir }}/portshaker.conf"
+portshaker_flags: ""
