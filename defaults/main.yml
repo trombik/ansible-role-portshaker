@@ -1,9 +1,10 @@
 ---
-portshaker_user: portshaker
-portshaker_group: portshaker
-portshaker_log_dir: /var/log/portshaker
-portshaker_db_dir: "{{ __portshaker_db_dir }}"
-portshaker_service: portshaker
-portshaker_conf_dir: "{{ __portshaker_conf_dir }}"
-portshaker_conf_file: "{{ __portshaker_conf_dir }}/portshaker.conf"
-portshaker_flags: ""
+portshaker_user: ""
+portshaker_group: ""
+portshaker_package: portshaker
+portshaker_conf_dir: /usr/local/etc
+portshaker_conf_file: "{{ portshaker_conf_dir }}/portshaker.conf"
+portshaker_conf_d_dir: /usr/local/etc/portshaker.d
+portshaker_mirror_base_dir: /var/cache/portshaker
+portshaker_ports_trees: []
+portshaker_config: ""

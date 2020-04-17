@@ -1,37 +1,41 @@
 ---
 # tasks file for ansible-role-portshaker
 
-- include_vars: "{{ ansible_os_family }}.yml"
+- name: "Include {{ ansible_os_family }}.yml"
+  include_vars: "{{ ansible_os_family }}.yml"
 
-- include: "install-{{ ansible_os_family }}.yml"
+- name: "Include install-{{ ansible_os_family }}.yml"
+  include: "install-{{ ansible_os_family }}.yml"
 
-- name: Create log directory
+- name: Create portshaker_mirror_base_dir
   file:
-    path: "{{ portshaker_log_dir }}"
+    path: "{{ portshaker_mirror_base_dir }}"
     mode: 0755
     owner: "{{ portshaker_user }}"
     group: "{{ portshaker_group }}"
     state: directory
-  notify: Restart portshaker
 
-- name: Create db directory
+- name: Create or remove portshaker_ports_dirs
   file:
-    path: "{{ portshaker_db_dir }}"
-    mode: 0755
-    owner: "{{ portshaker_user }}"
-    group: "{{ portshaker_group }}"
-    state: directory
-  notify: Restart portshaker
+    access_time: "{{ item.file.access_time | default(omit) }}"
+    access_time_format: "{{ item.file.access_time_format | default(omit) }}"
+    attributes: "{{ item.file.attributes | default(omit) }}"
+    follow: "{{ item.file.follow | default(omit) }}"
+    force: "{{ item.file.force | default(omit) }}"
+    group: "{{ item.file.group | default(omit) }}"
+    mode: "{{ item.file.mode | default(omit) }}"
+    modification_time: "{{ item.file.modification_time | default(omit) }}"
+    modification_time_format: "{{ item.file.modification_time_format | default(omit) }}"
+    owner: "{{ item.file.owner | default(omit) }}"
+    path: "{{ item.file.path }}"
+    recurse: "{{ item.file.recurse | default(omit) }}"
+    src: "{{ item.file.src | default(omit) }}"
+    state: "{{ item.file.state | default(omit) }}"
+    unsafe_writes: "{{ item.file.unsafe_writes | default(omit) }}"
+  with_items: "{{ portshaker_ports_trees }}"
 
 - name: Create portshaker.conf
   template:
     src: portshaker.conf.j2
     dest: "{{ portshaker_conf_file }}"
-    validate: echo %s
-  notify: Restart portshaker
-
-- name: Start portshaker
-  service:
-    name: "{{ portshaker_service }}"
-    enabled: true
-    state: started
+    validate: sh -n %s

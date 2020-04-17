@@ -1,6 +1,36 @@
 ---
 - hosts: localhost
   roles:
-    - ansible-role-portshaker
+    - role: ansible-role-portshaker
+  pre_tasks:
+    - name: Create portshaker group
+      group:
+        name: portshaker
+        state: present
+
+    - name: Create portshaker user
+      user:
+        name: portshaker
+        comment: portshaker user
+        create_home: no
+        group: portshaker
+        home: /var/empty
+        shell: /usr/sbin/nologin
+        state: present
   vars:
-    portshaker_config: ""
+    portshaker_user: portshaker
+    portshaker_group: portshaker
+
+    portshaker_ports_trees:
+      - name: default
+        file:
+          path: /usr/local/poudriere/ports/default
+          state: directory
+          owner: "{{ portshaker_user }}"
+          group: "{{ portshaker_group }}"
+
+    portshaker_config: |
+      mirror_base_dir="{{ portshaker_mirror_base_dir }}"
+      ports_trees="default"
+      default_ports_tree="/usr/local/poudriere/ports/default"
+      default_merge_from="portsnap"
