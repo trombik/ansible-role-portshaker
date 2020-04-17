@@ -9,6 +9,7 @@ mirror_base_dir = "/var/cache/portshaker"
 ports_dirs = %w[
   /usr/local/poudriere/ports/default
 ]
+portsnap_dir = "/var/db/portsnap"
 
 describe group(group) do
   it { should exist }
@@ -40,7 +41,7 @@ end
 describe command "portshaker -s" do
   its(:exit_status) { should eq 0 }
   its(:stderr) { should eq "" }
-  its(:stdout) { should match(/^portsnap$/) }
+  its(:stdout) { should match(/^github:trombik:freebsd-ports-sensu-go:devel ports$/) }
 end
 
 describe command "portshaker -t" do
@@ -57,4 +58,12 @@ ports_dirs.each do |d|
     it { should be_grouped_into group }
     it { should be_mode 755 }
   end
+end
+
+describe file portsnap_dir do
+  it { should exist }
+  it { should be_directory }
+  it { should be_owned_by user }
+  it { should be_grouped_into group }
+  it { should be_mode 755 }
 end

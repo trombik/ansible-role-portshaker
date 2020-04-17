@@ -33,4 +33,4 @@
       mirror_base_dir="{{ portshaker_mirror_base_dir }}"
       ports_trees="default"
       default_ports_tree="/usr/local/poudriere/ports/default"
-      default_merge_from="portsnap"
+      default_merge_from="ports github:trombik:freebsd-ports-sensu-go:devel"
