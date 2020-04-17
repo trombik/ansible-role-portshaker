@@ -4,3 +4,8 @@
   pkgng:
     name: "{{ portshaker_package }}"
     state: present
+
+- name: Install portshaker_extra_packages
+  pkgng:
+    name: "{{ portshaker_extra_packages }}"
+    state: present

@@ -15,6 +15,12 @@
     group: "{{ portshaker_group }}"
     state: directory
 
+- name: Create portshaker_portsnap_dir
+  file:
+    path: "{{ portshaker_portsnap_dir }}"
+    owner: "{{ portshaker_user }}"
+    group: "{{ portshaker_group }}"
+
 - name: Create or remove portshaker_ports_dirs
   file:
     access_time: "{{ item.file.access_time | default(omit) }}"

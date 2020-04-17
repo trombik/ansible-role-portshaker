@@ -6,5 +6,9 @@ portshaker_conf_dir: /usr/local/etc
 portshaker_conf_file: "{{ portshaker_conf_dir }}/portshaker.conf"
 portshaker_conf_d_dir: /usr/local/etc/portshaker.d
 portshaker_mirror_base_dir: /var/cache/portshaker
+portshaker_portsnap_dir: /var/db/portsnap
 portshaker_ports_trees: []
 portshaker_config: ""
+portshaker_extra_packages:
+  - ports-mgmt/portshaker-config
+  - git
